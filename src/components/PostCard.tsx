@@ -21,27 +21,37 @@ const PostCard: React.FC<PostProps> = ({ author, content, videoUrl, youtubeUrl }
 
   return (
     <div className="text-gray-800 bg-gray-100 p-4 rounded-lg shadow-md mb-4">
-      <h3 className="font-bold">{author}</h3>
-      {content && <p className="mt-2">{content}</p>}
+      <div className="flex row-auto">
+        <img
+          src={`https://api.dicebear.com/6.x/initials/svg?seed=${author}`}
+          alt={author}
+          className="w-10 h-10 rounded-full mr-3"
+        />
+        <h3 className="font-bold mt-2">{author}</h3>
+      </div>
+      <div className="">
+        {content && <p className="mt-2">{content}</p>}
+      </div>
 
-      {videoUrl && (
-        <video controls className="w-full rounded-lg">
-          <source src={videoUrl} type="video/mp4" />
-          Tu navegador no soporta la reproducción de videos.
-        </video>
-      )}
+      <div className="mt-9 mb-9">
 
-
-      {/* Mostrar video de YouTube si hay un youtubeUrl */}
-      {youtubeUrl && (
-        <iframe
-          className="w-full rounded-lg"
-          height="315"
-          src={generarURLYoutubeEmbebido(youtubeUrl)}
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-      )}
+        {videoUrl && (
+          <video controls className="w-full rounded-lg">
+            <source src={videoUrl} type="video/mp4" />
+            Tu navegador no soporta la reproducción de videos.
+          </video>
+        )}
+        {/* Mostrar video de YouTube si hay un youtubeUrl */}
+        {youtubeUrl && (
+          <iframe
+            className="w-full rounded-lg"
+            height="315"
+            src={generarURLYoutubeEmbebido(youtubeUrl)}
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        )}
+      </div>
 
 
       <div className="flex space-x-4 mt-2">
