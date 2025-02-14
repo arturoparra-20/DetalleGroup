@@ -1,21 +1,12 @@
 import React, { useState } from "react";
-
-interface PostFormProps {
-  onAddPost: (newPost: {
-    author: string;
-    content?: string;
-    videoUrl?: string;
-    youtubeUrl?: string;
-    groupId: number;
-    reactions: { like: number; dislike: number; sad: number; angry: number; surprised: number };
-  }) => void;
-}
+import { useAuth } from "../context/AuthContext"; // Asegúrate de importar el hook
 
 const CreatePostForm: React.FC<PostFormProps> = ({ onAddPost }) => {
+  const { user } = useAuth(); // Obtener el usuario logueado del contexto
   const [error, setError] = useState("");
 
   const [postData, setPostData] = useState({
-    author: "Usuario Actual", // Temporal, luego vendrá del backend
+    author: user ? user.name : "Usuario Actual", // Usar el nombre del usuario logueado
     content: "",
     videoUrl: "",
     youtubeUrl: "",
@@ -110,7 +101,7 @@ const CreatePostForm: React.FC<PostFormProps> = ({ onAddPost }) => {
     onAddPost(postData);
 
     setPostData({
-      author: "Usuario Actual",
+      author: user ? user.name : "Usuario Actual", // Resetear con el nombre del usuario actual
       content: "",
       videoUrl: "",
       youtubeUrl: "",
@@ -130,7 +121,7 @@ const CreatePostForm: React.FC<PostFormProps> = ({ onAddPost }) => {
           name="content"
           className="text-gray-900 w-full p-2 border rounded-md resize-none"
           rows={4}
-          maxLength={250}
+          maxLength={400}
           placeholder="Escribe algo... (máximo 4 líneas)"
           value={postData.content}
           onChange={handleChange}
@@ -176,5 +167,16 @@ const CreatePostForm: React.FC<PostFormProps> = ({ onAddPost }) => {
     </div>
   );
 };
+
+interface PostFormProps {
+  onAddPost: (newPost: {
+    author: string;
+    content?: string;
+    videoUrl?: string;
+    youtubeUrl?: string;
+    groupId: number;
+    reactions: { like: number; dislike: number; sad: number; angry: number; surprised: number };
+  }) => void;
+}
 
 export default CreatePostForm;
