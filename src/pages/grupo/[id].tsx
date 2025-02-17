@@ -12,16 +12,21 @@ const GroupPage = () => {
     { id: 3, name: "Carlos Gómez", avatar: "/user3.jpg" },
   ]);
 
+  // Comprobamos si el usuario es miembro al cargar la página
   const isMember = user ? members.some((m) => m.id === user.id) : false;
 
   const toggleMembership = () => {
     if (!user) return;
 
-    setMembers((prev) =>
-      isMember
-        ? prev.filter((m) => m.id !== user.id) // Elimina al usuario
-        : [...prev, { id: user.id, name: user.name, avatar: "/default.jpg" }] // Lo agrega
-    );
+    setMembers((prev) => {
+      // Si el usuario ya es miembro, lo quitamos
+      if (isMember) {
+        return prev.filter((m) => m.id !== user.id);
+      } else {
+        // Si el usuario no es miembro, lo agregamos
+        return [...prev, { id: user.id, name: user.name, avatar: "/default.jpg" }];
+      }
+    });
   };
 
   const group = {
@@ -38,7 +43,11 @@ const GroupPage = () => {
   };
 
   if (!user) {
-    return <p>No tienes acceso a este grupo. Por favor, inicia sesión.</p>;
+    return (
+      <h2 className="text-gray-900 font-bold justify-center">
+        No tienes acceso a este grupo. Por favor, inicia sesión.
+      </h2>
+    );
   }
 
   return (

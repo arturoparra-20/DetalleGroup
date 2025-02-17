@@ -15,9 +15,9 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const users = [
-    { id: 1, name: "Alejandro Pérez", password: "12345" },
-    { id: 2, name: "Anastasia Gómez", password: "password" },
-    { id: 3, name: "Carlos Ruiz", password: "admin" },
+    { id: 4, name: "Alejandro Pérez", password: "12345" },
+    { id: 5, name: "Anastasia Gómez", password: "password" },
+    { id: 6, name: "Carlos Ruiz", password: "admin" },
 ];
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
